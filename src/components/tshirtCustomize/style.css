@@ -1,0 +1,348 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,600;1,900&display=swap');
+@import url('https://rsms.me/inter/inter.css');
+html {
+  font-family: 'Inter', sans-serif;
+}
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: 'Inter var', sans-serif;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  user-select: none;
+}
+
+#main {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  background: #f1efdd;
+}
+
+body {
+  background: #f1efdd;
+  font-family: 'Inter', sans-serif;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+canvas {
+  opacity: 0;
+  touch-action: none;
+  animation: fade-in 1s ease 0.3s forwards;
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 0;
+  align-items: center;
+  position: static;
+}
+
+header p {
+  font-weight: bold;
+  font-size: 0.8rem;
+  transition: all 1.2s ease-out;
+}
+
+header p.hidden {
+  opacity: 0;
+}
+
+.overlay-root {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+section {
+  position: static;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  height: auto;
+  padding: 16px 0;
+}
+
+.section--container {
+  margin-top: 0;
+  /* padding-top: 10px; */
+  margin-left: 0;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 16px;
+}
+
+.section--container.hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.section--container h1 {
+  font-weight: 900;
+  font-size: 5rem;
+  letter-spacing: -6px;
+  font-style: italic;
+  width: 30%;
+  /* line-height: 10rem; */
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.support--content {
+  position: static;
+  margin-top: 10px;
+  margin-left: 0;
+  max-width: 520px;
+}
+
+.support--content p {
+  margin-bottom: 10px;
+}
+
+.support--content button {
+  margin-top: 1px;
+}
+
+.support--content p {
+  width: 350px;
+  margin-bottom: 48px;
+  line-height: 1.5rem;
+}
+
+.bg {
+  position: static;
+  width: 100%;
+  height: auto;
+  z-index: auto;
+}
+
+button {
+  background-color: #dd5c18;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: bolder;
+  pointer-events: all;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+  box-shadow: inset 0 0 0 0.09px black;
+
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 30px;
+}
+
+button:hover {
+  box-shadow: inset 250px 0 0 0 black;
+  transform: scale(1.1);
+}
+
+/* CUSTOMIZER */
+
+.customizer {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.customizer span {
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.customizer span svg {
+  width: 24px;
+  padding-right: 5px;
+}
+
+.share {
+  position: static;
+}
+
+.zoom {
+  position: static;
+  color: #00000056;
+  font-size: 0.6rem;
+  border: 1px solid #00000000;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border, color 1s ease;
+}
+
+.zoom:hover {
+  color: black;
+}
+
+/* PICKER */
+
+.picker {
+  position: static !important;
+  width: 120px !important;
+  height: 120px !important;
+  margin: 12px 0;
+}
+
+.color-options {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid white;
+  transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+}
+
+.circle:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.decals {
+  position: static;
+  padding: 8px 0;
+}
+
+.decals p {
+  font-family: 'Inter var';
+  font-size: 0.7rem;
+  padding-bottom: 15px;
+}
+
+.decals img {
+  width: 24px;
+  filter: saturate(0) invert(1) brightness(5.5);
+  transition: all 0.2s ease-in-out;
+}
+
+.decals img:hover {
+  filter: none;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.decals--position {
+  position: static;
+  color: #00000056;
+  font-size: 0.6rem;
+  border: 1px solid #00000000;
+  padding: 10px 10px;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border 1s ease;
+}
+
+.decals--position:hover {
+  color: black;
+  border: 1px solid #00000056;
+}
+
+.upload {
+  margin-top: -5px;
+  cursor: pointer;
+}
+
+.upload:hover {
+  color: white;
+}
+
+.decals--container {
+  display: flex;
+  gap: 20px;
+}
+
+.exit {
+  background-color: #fff;
+  box-shadow: inset 0 0 0 0.09px black;
+}
+
+.exit:hover {
+  box-shadow: inset -250px 0 0 0 black;
+}
+
+.actions-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+  .section--container {
+    margin-left: 0;
+  }
+
+  .section--container h1 {
+    font-size: 8rem;
+    letter-spacing: -6px;
+    line-height: 6rem;
+  }
+
+  .color-options {
+    margin-bottom: 20px;
+    flex-direction: column;
+    position: static;
+    top: auto;
+    right: auto;
+    transform: none;
+  }
+
+  .support--content {
+    top: auto;
+    left: auto;
+  }
+}

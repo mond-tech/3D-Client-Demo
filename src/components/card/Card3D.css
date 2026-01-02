@@ -1,0 +1,11 @@
+.card-demo-outer {
+  width: 100%;
+  max-width: 360px;
+}
+
+.card-demo-body {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+}
+

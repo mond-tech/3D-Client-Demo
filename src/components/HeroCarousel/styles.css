@@ -1,0 +1,47 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* hero section height */
+  overflow: hidden;
+  background: #f1efdd;
+  color: #111;
+}
+
+.hero-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hero > div {
+  width: 100%;
+  height: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hero > div::-webkit-scrollbar {
+  display: none;
+}
+
+.hero div[style*='overflow'] {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hero div[style*='overflow']::-webkit-scrollbar {
+  display: none;
+}
+
+.hero-overlay {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+}
+
+.logo {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  width: 30px;
+}

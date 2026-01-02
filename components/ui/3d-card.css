@@ -1,0 +1,38 @@
+.card-container-outer {
+  padding: 32px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-container-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform 200ms linear;
+  transform-style: preserve-3d;
+}
+
+.card-body {
+  height: 18rem;
+  width: 18rem;
+  transform-style: preserve-3d;
+}
+
+.card-body > * {
+  transform-style: preserve-3d;
+}
+
+@media (min-width: 640px) {
+  .card-body {
+    height: 20rem;
+    width: 20rem;
+  }
+}
+
+.card-item {
+  width: fit-content;
+  transition: transform 200ms linear;
+}
+
