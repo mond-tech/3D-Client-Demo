@@ -225,7 +225,7 @@ function Model({ children, color = "white", roughness = 0, hovered = false, ...p
         ref={ref} 
         castShadow 
         receiveShadow 
-        scale={hovered ? 22 : 20} 
+        scale={hovered ? 35 : 30} 
         geometry={nodes.connector.geometry}
       >
         <meshStandardMaterial metalness={0.2} roughness={roughness} map={materials.base.map} />
