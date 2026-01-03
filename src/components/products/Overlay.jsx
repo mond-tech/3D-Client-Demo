@@ -48,9 +48,9 @@ const Overlay = forwardRef(({ caption, scroll }, ref) => (
         airship development at the beginning of the 20th century.
       </div>
     </div>
-    <span class="caption" ref={caption}>
+    {/* <span class="caption" ref={caption}>
       0.00
-    </span>
+    </span> */}
   </div>
 ))
 

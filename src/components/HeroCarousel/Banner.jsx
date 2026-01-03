@@ -16,7 +16,7 @@ export default function Banner(props) {
 
   return (
     <mesh ref={ref} {...props}>
-      <cylinderGeometry args={[1.6, 1.6, 0.14, 128, 16, true]} />
+      {/* <cylinderGeometry args={[1.6, 1.6, 0.14, 128, 16, true]} /> */}
       <meshSineMaterial
         map={texture}
         map-anisotropy={16}

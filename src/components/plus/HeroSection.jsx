@@ -10,20 +10,20 @@ export function HeroSection() {
         shadows
         dpr={[1, 1.5]}
         gl={{ antialias: false }}
-        camera={{ position: [0, 0, 18], fov: 40, near: 1, far: 35 }}
+        camera={{ position: [0, 0, 25], fov: 50, near: 1, far: 50 }}
       >
         <LusionScene />
       </Canvas>
       
       <div className="plus-overlay">
-        <div className="plus-overlay-content">
+         <div className="plus-overlay-content">
           <h2 className="plus-overlay-title">Explore Our Gallery</h2>
           <p className="plus-overlay-description">Discover amazing 3D designs and creative products</p>
           <Link to="/gallery" className="plus-overlay-button">
             View Gallery
           </Link>
         </div>
-      </div>
+      </div> 
     </div>
   )
 }

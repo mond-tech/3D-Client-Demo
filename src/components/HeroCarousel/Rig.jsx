@@ -8,7 +8,9 @@ export default function Rig({ children, ...props }) {
   const scroll = useScroll()
 
   useFrame((state, delta) => {
-    ref.current.rotation.y = -scroll.offset * Math.PI * 2
+    // Auto-rotate continuously based on time
+    ref.current.rotation.y += delta * 0.2 // Adjust speed (0.2 = moderate speed)
+    
     state.events.update()
     easing.damp3(
       state.camera.position,

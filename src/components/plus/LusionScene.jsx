@@ -1,5 +1,5 @@
 import * as THREE from "three"
-import { useMemo, useReducer, useRef } from "react"
+import { useMemo, useReducer, useRef, useState } from "react"
 import { useFrame } from "@react-three/fiber"
 import {
   useGLTF,
@@ -49,7 +49,7 @@ export function LusionScene() {
         {connectors.map((props, i) => (
           <Connector key={i} {...props} />
         ))}
-        <Connector position={[6, 4, 3]}>
+        <Connector position={[10, 6, 3]}>
           <Model>
             <MeshTransmissionMaterial
               clearcoat={1}
@@ -61,7 +61,7 @@ export function LusionScene() {
             />
           </Model>
         </Connector>
-        <Connector position={[-6, 4, 3]}>
+        <Connector position={[-10, 6, 3]}>
           <Model>
             <MeshTransmissionMaterial
               clearcoat={1}
@@ -73,7 +73,7 @@ export function LusionScene() {
             />
           </Model>
         </Connector>
-        <Connector position={[6, -4, 3]}>
+        <Connector position={[10, -6, 3]}>
           <Model>
             <MeshTransmissionMaterial
               clearcoat={1}
@@ -85,7 +85,31 @@ export function LusionScene() {
             />
           </Model>
         </Connector>
-        <Connector position={[-6, -4, 3]}>
+        <Connector position={[-10, -6, 3]}>
+          <Model>
+            <MeshTransmissionMaterial
+              clearcoat={1}
+              thickness={0.1}
+              anisotropicBlur={0.1}
+              chromaticAberration={0.1}
+              samples={8}
+              resolution={512}
+            />
+          </Model>
+        </Connector>
+        <Connector position={[0, 7, 2]}>
+          <Model>
+            <MeshTransmissionMaterial
+              clearcoat={1}
+              thickness={0.1}
+              anisotropicBlur={0.1}
+              chromaticAberration={0.1}
+              samples={8}
+              resolution={512}
+            />
+          </Model>
+        </Connector>
+        <Connector position={[0, -7, 2]}>
           <Model>
             <MeshTransmissionMaterial
               clearcoat={1}
@@ -125,18 +149,43 @@ function Connector({
   ...props
 }) {
   const api = useRef()
-  const pos = useMemo(() => position || [r(14), r(10), r(8)], [])
+  const [hovered, setHovered] = useState(false)
+  const pos = useMemo(() => position || [r(28), r(16), r(10)], [])
+  
   useFrame((state, delta) => {
     delta = Math.min(0.1, delta)
-    // Weak centering force to keep objects loosely grouped but spread out
-    api.current?.applyImpulse(vec.copy(api.current.translation()).negate().multiplyScalar(0.05))
+    // Remove centering force - let objects stay distributed
+    
+    // Add hover effects
+    if (hovered && api.current) {
+      // Apply impulse to move the object away from center when hovered
+      const impulseStrength = 0.3
+      api.current.applyImpulse({
+        x: Math.sin(state.clock.elapsedTime * 3) * impulseStrength,
+        y: Math.cos(state.clock.elapsedTime * 3) * impulseStrength,
+        z: Math.sin(state.clock.elapsedTime * 2) * impulseStrength
+      })
+      
+      // Add torque for rotation
+      api.current.applyTorqueImpulse({
+        x: Math.sin(state.clock.elapsedTime * 2) * 0.05,
+        y: Math.cos(state.clock.elapsedTime * 2) * 0.05,
+        z: Math.sin(state.clock.elapsedTime * 1.5) * 0.05
+      })
+    }
   })
+  
   return (
     <RigidBody linearDamping={4} angularDamping={1} friction={0.1} position={pos} ref={api} colliders={false}>
       <CuboidCollider args={[0.38, 1.27, 0.38]} />
       <CuboidCollider args={[1.27, 0.38, 0.38]} />
       <CuboidCollider args={[0.38, 0.38, 1.27]} />
-      {children ? children : <Model {...props} />}
+      <group
+        onPointerEnter={() => setHovered(true)}
+        onPointerLeave={() => setHovered(false)}
+      >
+        {children ? children : <Model {...props} hovered={hovered} />}
+      </group>
       {accent && <pointLight intensity={4} distance={2.5} color={props.color} />}
     </RigidBody>
   )
@@ -154,16 +203,34 @@ function Pointer({ vec = new THREE.Vector3() }) {
   )
 }
 
-function Model({ children, color = "white", roughness = 0, ...props }) {
+function Model({ children, color = "white", roughness = 0, hovered = false, ...props }) {
   const ref = useRef()
+  const meshRef = useRef()
   const { nodes, materials } = useGLTF("/c-transformed.glb")
+  
   useFrame((state, delta) => {
     easing.dampC(ref.current.material.color, color, 0.2, delta)
+    
+    // Add rotation animation when hovered
+    if (hovered && meshRef.current) {
+      meshRef.current.rotation.x += delta * 2
+      meshRef.current.rotation.y += delta * 3
+      meshRef.current.rotation.z += delta * 1.5
+    }
   })
+  
   return (
-    <mesh ref={ref} castShadow receiveShadow scale={10} geometry={nodes.connector.geometry}>
-      <meshStandardMaterial metalness={0.2} roughness={roughness} map={materials.base.map} />
-      {children}
-    </mesh>
+    <group ref={meshRef}>
+      <mesh 
+        ref={ref} 
+        castShadow 
+        receiveShadow 
+        scale={hovered ? 22 : 20} 
+        geometry={nodes.connector.geometry}
+      >
+        <meshStandardMaterial metalness={0.2} roughness={roughness} map={materials.base.map} />
+        {children}
+      </mesh>
+    </group>
   )
 }
